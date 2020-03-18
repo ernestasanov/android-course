@@ -22,7 +22,7 @@ class StudentViewHolder(
 }
 
 class StudentsAdapter(
-    private val students: List<Student>,
+    var students: List<Student>,
     private val onClick : (Student) -> Unit
 ) : RecyclerView.Adapter<StudentViewHolder>() {
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
