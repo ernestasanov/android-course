@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
@@ -21,7 +21,7 @@ class MainActivity extends AppCompatActivity {
     }
 
     private void showStudentCard(Student student) {
-        StudentCardFragment studentCardFragment = StudentCardFragment.newInstance();
+        StudentCardFragment studentCardFragment = new StudentCardFragment(student);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, studentCardFragment)
                 .addToBackStack(null)

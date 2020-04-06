@@ -6,7 +6,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-class StudentsLoadTask extends AsyncTask<File, Void, List<Student>> {
+public class StudentsLoadTask extends AsyncTask<File, Void, List<Student>> {
     private WeakReference<UIListener> listener;
 
     StudentsLoadTask(WeakReference<UIListener> listener) {

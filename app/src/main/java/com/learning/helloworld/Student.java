@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-class Student {
+public class Student {
     String firstName;
 
     String lastName;
