@@ -21,7 +21,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private void showStudentCard(Student student) {
-        StudentCardFragment studentCardFragment = StudentCardFragment.newInstance();
+        StudentCardFragment studentCardFragment = new StudentCardFragment(student);
         getSupportFragmentManager().beginTransaction()
                 .replace(R.id.fragment_container, studentCardFragment)
                 .addToBackStack(null)
