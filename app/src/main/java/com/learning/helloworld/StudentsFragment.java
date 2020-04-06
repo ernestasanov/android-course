@@ -17,7 +17,7 @@ import java.lang.ref.WeakReference;
 import java.util.ArrayList;
 import java.util.List;
 
-class StudentsFragment extends Fragment {
+public class StudentsFragment extends Fragment {
     private RecyclerView studentsView;
 
     public interface StudentClickListener {

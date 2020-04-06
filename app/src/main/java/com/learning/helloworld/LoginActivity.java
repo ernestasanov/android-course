@@ -10,7 +10,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-class LoginActivity extends AppCompatActivity {
+public class LoginActivity extends AppCompatActivity {
 
     private static final String PREF_NAME = "Preferences";
     private static final String KEY_LOGIN = "login";

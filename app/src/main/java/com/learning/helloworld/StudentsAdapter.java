@@ -34,7 +34,7 @@ class StudentViewHolder extends RecyclerView.ViewHolder {
     }
 }
 
-class StudentsAdapter extends RecyclerView.Adapter<StudentViewHolder> {
+public class StudentsAdapter extends RecyclerView.Adapter<StudentViewHolder> {
     List<Student> students;
     private StudentsFragment.StudentClickListener studentClickListener;
 

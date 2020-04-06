@@ -3,7 +3,7 @@ package com.learning.helloworld;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
-class ChildActivity extends AppCompatActivity {
+public class ChildActivity extends AppCompatActivity {
 
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
