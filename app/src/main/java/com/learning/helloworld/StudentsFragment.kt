@@ -4,22 +4,22 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import java.io.File
 import java.lang.ref.WeakReference
 
-class StudentsFragment : Fragment() {
-    private var studentsView: RecyclerView? = null
-    private var onStudentClick : ((Student) -> Unit)? = null
-    private var students = emptyList<Student>()
+class StudentsFragment(private val onStudentClick: (Student) -> Unit) : Fragment() {
+    private lateinit var studentsView: RecyclerView
+    private val students = emptyList<Student>()
 
-    private var studentsAdapter : StudentsAdapter? = null
+    private lateinit var studentsAdapter: StudentsAdapter
 
-    private var studentsLoadTask : StudentsLoadTask? = null
+    private lateinit var studentsLoadTask: StudentsLoadTask
 
-    private var listener : StudentsLoadTask.UIListener? = null
+    private lateinit var listener: StudentsLoadTask.UIListener
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -31,34 +31,31 @@ class StudentsFragment : Fragment() {
         val studentsFile = File(context?.filesDir, "students.txt")
         listener = object : StudentsLoadTask.UIListener {
             override fun onStudentsLoaded(students: List<Student>) {
-                studentsAdapter?.students = students
-                studentsAdapter?.notifyDataSetChanged()
+                view.findViewById<ProgressBar>(R.id.progressBar).visibility = View.GONE
+                studentsAdapter.students = students
+                studentsAdapter.notifyDataSetChanged()
             }
         }
 
-        studentsLoadTask = StudentsLoadTask(WeakReference(listener!!))
-        studentsLoadTask?.execute(studentsFile)
+        studentsLoadTask = StudentsLoadTask(WeakReference(listener))
+        studentsLoadTask.execute(studentsFile)
 
         studentsView = view.findViewById(R.id.students)
-        studentsView?.layoutManager = LinearLayoutManager(context)
+        studentsView.layoutManager = LinearLayoutManager(context)
         studentsAdapter = StudentsAdapter(students) { student ->
-            onStudentClick?.invoke(student)
+            onStudentClick.invoke(student)
         }
-        studentsView?.adapter = studentsAdapter
+        studentsView.adapter = studentsAdapter
 
         return view
     }
 
     override fun onDestroy() {
-        studentsLoadTask?.cancel(true)
+        studentsLoadTask.cancel(true)
         super.onDestroy()
     }
 
     companion object {
-        fun newInstance(onStudentClick: (Student) -> Unit): StudentsFragment {
-            val fragment = StudentsFragment()
-            fragment.onStudentClick = onStudentClick
-            return fragment
-        }
+        fun newInstance(onStudentClick: (Student) -> Unit) = StudentsFragment(onStudentClick)
     }
 }

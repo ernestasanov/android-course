@@ -2,8 +2,6 @@ package com.learning.helloworld
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.TextView
-import com.learning.helloworld.LoginActivity.Companion.KEY_LOGIN
 
 class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

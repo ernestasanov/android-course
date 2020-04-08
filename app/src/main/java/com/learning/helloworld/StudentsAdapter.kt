@@ -11,11 +11,11 @@ class StudentViewHolder(
     itemView: ConstraintLayout,
     val onClick : (Student) -> Unit
 ) : RecyclerView.ViewHolder(itemView) {
-    private var nameTextView : TextView? = itemView.findViewById(R.id.name)
+    private val nameTextView : TextView = itemView.findViewById(R.id.name)
 
     fun bind(student: Student) {
-        nameTextView?.text = "${student.firstName} ${student.lastName}"
-        nameTextView?.setOnClickListener {
+        nameTextView.text = "${student.firstName} ${student.lastName}"
+        nameTextView.setOnClickListener {
             onClick(student)
         }
     }
