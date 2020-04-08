@@ -1,6 +1,8 @@
-package com.learning.helloworld
+package com.learning.helloworld.tasks
 
 import android.os.AsyncTask
+import com.learning.helloworld.structures.Student
+import com.learning.helloworld.structures.StudentLoader
 import java.io.File
 import java.lang.ref.WeakReference
 
@@ -17,7 +19,7 @@ class StudentsLoadTask(
             return emptyList()
         }
         val file = params[0]!!
-        Thread.sleep(10000)
+        Thread.sleep(1000)
         return StudentLoader.loadStudents(file)
     }
 

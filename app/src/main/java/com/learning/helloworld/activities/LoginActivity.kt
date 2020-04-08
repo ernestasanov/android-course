@@ -1,4 +1,4 @@
-package com.learning.helloworld
+package com.learning.helloworld.activities
 
 import android.content.Context
 import android.content.Intent
@@ -7,12 +7,13 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.edit
+import com.learning.helloworld.R
 
 class LoginActivity : AppCompatActivity() {
+    private val loginPreferences
+        get() = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
 
-    var realLogin : String = ""
-    var realPassword : String = ""
+    private fun shortMsg(msg: String) = Toast.makeText(this, msg, Toast.LENGTH_SHORT).show()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -23,41 +24,42 @@ class LoginActivity : AppCompatActivity() {
         val confirmButton = findViewById<Button>(R.id.confirmButton)
         val registerButton = findViewById<Button>(R.id.registerButton)
 
-        val preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-        realLogin = preferences.getString(KEY_LOGIN, "")!!
-        realPassword = preferences.getString(KEY_PASSWORD, "")!!
-
         registerButton.setOnClickListener {
             val login = loginEdit.text.toString()
             val password = passwordEdit.text.toString()
-            val preferences = getSharedPreferences(PREF_NAME, Context.MODE_PRIVATE)
-            val editor = preferences.edit()
-            editor.putString(KEY_LOGIN, login)
-            editor.putString(KEY_PASSWORD, password)
-            editor.apply()
+
+            if (login.trim() != "" && password != "") {
+                with(loginPreferences.edit()) {
+                    putString(login, password)
+                    commit()
+                }
+                shortMsg("OK. Now try to login")
+            } else {
+                shortMsg("Empty credentials not allowed")
+            }
         }
 
         confirmButton.setOnClickListener {
             val login = loginEdit.text.toString()
             val password = passwordEdit.text.toString()
 
-            if (login == realLogin) {
+            val realPassword = loginPreferences.getString(login, null)
+            if (realPassword != null) {
                 if (password == realPassword) {
                     val intent = Intent(this, MainActivity::class.java)
                     intent.putExtra(KEY_LOGIN, login)
                     startActivity(intent)
                 } else {
-                    Toast.makeText(this, "Wrong password", Toast.LENGTH_LONG).show()
+                    shortMsg("Wrong password")
                 }
             } else {
-                Toast.makeText(this, "Wrong login", Toast.LENGTH_SHORT).show()
+                shortMsg("Wrong login")
             }
         }
     }
 
     companion object {
-        const val PREF_NAME = "Preferences"
-        const val KEY_LOGIN = "login"
-        const val KEY_PASSWORD = "password"
+        const val PREF_NAME = "Accounts"
+        internal const val KEY_LOGIN = "login"
     }
 }

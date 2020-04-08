@@ -1,5 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <string name="app_name">Это стены</string>
     <string name="button_text">Нажми на меня</string>
     <string name="goodbye_world">Прощай мир!</string>
+    <string name="wall">Стена</string>
+    <string name="write">Напишите что-нибудь</string>
+    <string name="post">Запостить</string>
 </resources>
