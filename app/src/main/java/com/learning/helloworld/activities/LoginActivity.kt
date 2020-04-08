@@ -1,4 +1,4 @@
-package com.learning.helloworld
+package com.learning.helloworld.activities
 
 import android.content.Context
 import android.content.Intent
@@ -7,7 +7,7 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
-import androidx.core.content.edit
+import com.learning.helloworld.R
 
 class LoginActivity : AppCompatActivity() {
     private val loginPreferences
@@ -60,6 +60,6 @@ class LoginActivity : AppCompatActivity() {
 
     companion object {
         const val PREF_NAME = "Accounts"
-        const val KEY_LOGIN = "login"
+        internal const val KEY_LOGIN = "login"
     }
 }

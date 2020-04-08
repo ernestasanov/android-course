@@ -1,4 +1,4 @@
-package com.learning.helloworld
+package com.learning.helloworld.adapters
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -6,6 +6,8 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.constraintlayout.widget.ConstraintLayout
 import androidx.recyclerview.widget.RecyclerView
+import com.learning.helloworld.R
+import com.learning.helloworld.structures.Student
 
 class StudentViewHolder(
     itemView: ConstraintLayout,
@@ -14,7 +16,7 @@ class StudentViewHolder(
     private val nameTextView : TextView = itemView.findViewById(R.id.name)
 
     fun bind(student: Student) {
-        nameTextView.text = "${student.firstName} ${student.lastName}"
+        nameTextView.text = student.name
         nameTextView.setOnClickListener {
             onClick(student)
         }
@@ -28,7 +30,10 @@ class StudentsAdapter(
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StudentViewHolder {
         val inflater = parent.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE) as LayoutInflater
         val itemView = inflater.inflate(R.layout.student, parent, false) as ConstraintLayout
-        return StudentViewHolder(itemView, onClick)
+        return StudentViewHolder(
+            itemView,
+            onClick
+        )
     }
 
     override fun getItemCount(): Int {

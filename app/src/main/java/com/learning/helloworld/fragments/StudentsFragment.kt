@@ -1,4 +1,4 @@
-package com.learning.helloworld
+package com.learning.helloworld.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -8,12 +8,15 @@ import android.widget.ProgressBar
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.learning.helloworld.R
+import com.learning.helloworld.adapters.StudentsAdapter
+import com.learning.helloworld.tasks.StudentsLoadTask
+import com.learning.helloworld.structures.Student
 import java.io.File
 import java.lang.ref.WeakReference
 
 class StudentsFragment(private val onStudentClick: (Student) -> Unit) : Fragment() {
     private lateinit var studentsView: RecyclerView
-    private val students = emptyList<Student>()
 
     private lateinit var studentsAdapter: StudentsAdapter
 
@@ -37,14 +40,20 @@ class StudentsFragment(private val onStudentClick: (Student) -> Unit) : Fragment
             }
         }
 
-        studentsLoadTask = StudentsLoadTask(WeakReference(listener))
+        studentsLoadTask =
+            StudentsLoadTask(
+                WeakReference(
+                    listener
+                )
+            )
         studentsLoadTask.execute(studentsFile)
 
         studentsView = view.findViewById(R.id.students)
         studentsView.layoutManager = LinearLayoutManager(context)
-        studentsAdapter = StudentsAdapter(students) { student ->
-            onStudentClick.invoke(student)
-        }
+        studentsAdapter =
+            StudentsAdapter(emptyList()) { student ->
+                onStudentClick.invoke(student)
+            }
         studentsView.adapter = studentsAdapter
 
         return view
@@ -56,6 +65,7 @@ class StudentsFragment(private val onStudentClick: (Student) -> Unit) : Fragment
     }
 
     companion object {
-        fun newInstance(onStudentClick: (Student) -> Unit) = StudentsFragment(onStudentClick)
+        fun newInstance(onStudentClick: (Student) -> Unit) =
+            StudentsFragment(onStudentClick)
     }
 }
